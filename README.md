@@ -9,7 +9,7 @@ The package provides tools for calculating and solving the following quantities 
 
 * Friedmann equation
 * Cosmological distances
-** Comoving distance
+    * Comoving distance
 * Age of the universe
 
 The package provides tools for calculating and solving the following quantities and equations.
