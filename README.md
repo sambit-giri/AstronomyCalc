@@ -5,10 +5,11 @@ This is a package for basic astronomical and cosmological calculations. More doc
 
 ## Package details
 
-There are various manipulation and analysis moduled in `Tools21cm`. 
+The package provides tools for calculating and solving the following quantities and equations.
 
 * Friedmann equation
 * Cosmological distances
+** Comoving distance
 * Age of the universe
 
 The package provides tools for calculating and solving the following quantities and equations.
