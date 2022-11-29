@@ -5,6 +5,10 @@ This is a package for basic astronomical and cosmological calculations. More doc
 
 ## Package details
 
+There are various manipulation and analysis moduled in `Tools21cm`. 
+
+* Angular coordinates: methods to convert data between physical (cMpc) coordinates and observational (angular-frequency) coordinates
+
 The package provides tools for calculating and solving the following quantities and equations:
     
     * Friedmann equation
