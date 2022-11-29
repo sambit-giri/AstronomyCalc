@@ -5,7 +5,7 @@ This is a package for basic astronomical and cosmological calculations. More doc
 
 ## Package details
 
-The package provides tools for calculating and solving the following quantities and equations::
+The package provides tools for calculating and solving the following quantities and equations:
     
     * Friedmann equation
     * Cosmological distances
