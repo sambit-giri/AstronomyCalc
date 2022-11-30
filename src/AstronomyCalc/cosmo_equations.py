@@ -35,6 +35,13 @@ class FriedmannEquation:
         assert z is not None or a is not None 
         if z is not None: return self.Hz(z)
         else: return self.Ha(a)
+    
+    def age(self, z=None, a=None):
+        assert z is not None or a is not None
+        if a is None: a = z_to_a(z)
+        I = lambda a: 1/a/self.H(a=a)
+        t = lambda a: quad(I, 0, a)[0]*const.Mpc_to_km/const.Gyr_to_s
+        return np.vectorize(t)(a) 
 
 class CosmoDistances(FriedmannEquation):
     '''
