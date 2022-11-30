@@ -68,6 +68,9 @@ class CosmoDistances(FriedmannEquation):
         self.param = param
         self.create_functions()
 
+    def Hubble_dist(self):
+        return const.c_kmps/self.H(z=0)
+
     def _comoving_dist(self, z):
         I = lambda z: const.c_kmps/self.H(z=z)
         return quad(I, 0, z)[0] # Mpc
@@ -79,6 +82,11 @@ class CosmoDistances(FriedmannEquation):
     def proper_dist(self, z=None, a=None):
         dc = self.comoving_dist(z=z, a=a)
         return dc/(1+z)
+
+    def light_travel_dist(self, z=None, a=None):
+        t0 = self.age(z=0)
+        te = self.age(z=z, a=a)
+        return const.c_kmps*(t0-te)*const.Gyr_to_s/const.Mpc_to_km
 
     def angular_dist(self, z=None, a=None):
         dc = self.comoving_dist(z=z, a=a)
