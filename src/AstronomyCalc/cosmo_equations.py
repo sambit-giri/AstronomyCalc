@@ -95,3 +95,6 @@ class CosmoDistances(FriedmannEquation):
     def luminosity_dist(self, z=None, a=None):
         dc = self.comoving_dist(z=z, a=a)
         return dc*(1+z)
+
+    def horizon_dist(self):
+        return self.comoving_dist(self, a=1e-8)
