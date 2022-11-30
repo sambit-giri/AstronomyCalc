@@ -4,7 +4,7 @@ Main modules
 
 Cosmological calculator
 ----------------------
-.. automodule:: AstronomyCalc.calculator
+.. automodule:: AstronomyCalc.cosmo_calculator
     :members:
     
 Cosmological equations
