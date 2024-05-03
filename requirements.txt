@@ -4,6 +4,7 @@ matplotlib
 pytest
 astropy
 astroML
+pandas
 
 ipython
 nbsphinx
