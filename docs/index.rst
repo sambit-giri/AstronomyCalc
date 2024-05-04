@@ -1,5 +1,3 @@
-.. include:: readme.rst
-
 Contents
 ========
 .. toctree::
