@@ -12,7 +12,6 @@ This is a package for basic astronomical and cosmological calculations.
 Contents
 ========
 .. toctree::
-   :maxdepth: 2
 
    installation
    tutorials
