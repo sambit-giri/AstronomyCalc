@@ -10,3 +10,4 @@ The following examples will help you get started with ``simple_python_package_te
    :caption: Examples:
 
    examples/model_univerves
+   examples/hubble_diagram
