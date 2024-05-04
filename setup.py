@@ -4,8 +4,8 @@ Created on 25 November 2022
 Setup script
 '''
 
-from setuptools import setup, find_packages
-#from distutils.core import setup
+# from setuptools import setup, find_packages
+from distutils.core import setup
 
 
 setup(name='AstronomyCalc',
