@@ -1,6 +1,4 @@
 
-This is a package for basic astronomical and cosmological calculations.
-
 Package details
 ===============
 

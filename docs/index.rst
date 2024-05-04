@@ -1,6 +1,9 @@
 =============
 AstronomyCalc
 =============
+
+This is a package for basic astronomical and cosmological calculations.
+
 .. toctree::
 
    readme
