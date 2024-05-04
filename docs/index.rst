@@ -4,14 +4,12 @@ AstronomyCalc
 
 This is a package for basic astronomical and cosmological calculations.
 
-.. include:: readme
-
-
 Contents
 ========
 .. toctree::
    :maxdepth: 2
 
+   readme
    installation
    tutorials
    contents
