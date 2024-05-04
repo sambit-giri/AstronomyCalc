@@ -9,5 +9,5 @@ Cosmological calculator
     
 Cosmological equations
 ----------------------
-.. automodule:: AstronomyCalc.cosmo_equation
+.. automodule:: AstronomyCalc.cosmo_equations
     :members:
