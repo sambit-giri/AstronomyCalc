@@ -2,7 +2,6 @@
 AstronomyCalc
 =============
 .. toctree::
-   :maxdepth: 1
 
    readme
 
