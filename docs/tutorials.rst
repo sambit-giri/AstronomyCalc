@@ -3,7 +3,7 @@ Tutorials
 =========
 
 
-The following examples will help you get started with ``simple_python_package_template``:
+The following examples will help you get started with ``AstronomyCalc``:
 
 .. toctree::
    :maxdepth: 2
