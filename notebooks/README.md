@@ -1,6 +1,6 @@
 # Example Jupyter Notebooks
 
-This folder contains sample notebooks based on the ``AstronomyCalc``. To install the package, see the `readthedocs <https://astronomycalc.readthedocs.io/en/latest/installation.html>`_ page.
+This folder contains sample notebooks based on the ``AstronomyCalc``. To install the package, see the [readthedocs](https://astronomycalc.readthedocs.io/en/latest/installation.html) page.
 
 Some of the examples have been set up to try online:
 

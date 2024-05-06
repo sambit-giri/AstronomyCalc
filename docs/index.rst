@@ -2,7 +2,7 @@
 AstronomyCalc
 =============
 
-This is a package for basic astronomical and cosmological calculations. The source package can be found at [GitHub](https://github.com/sambit-giri/AstronomyCalc).
+This is a package for basic astronomical and cosmological calculations. The source package can be found at `GitHub <https://github.com/sambit-giri/AstronomyCalc>`_.
 
 Contents
 ========
