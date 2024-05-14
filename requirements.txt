@@ -5,6 +5,8 @@ pytest
 astropy
 astroML
 pandas
+emcee
+corner
 
 ipython
 nbsphinx
