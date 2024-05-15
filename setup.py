@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 
 setup(name='AstronomyCalc',
-      version='0.0.1',
+      version='0.0.2',
       author='Sambit Giri',
       author_email='sambit.giri@su.se',
       packages=find_packages("src"),
