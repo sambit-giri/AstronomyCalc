@@ -48,11 +48,7 @@ class CosmoDistances(FriedmannEquation):
     Cosmological distances
     
     Attributes:
-        H              : function to give the value of the Hubble parameter in km/s/Mpc.
-        comoving_dist  : function to give the comoving distance in Mpc.
-        proper_dist    : function to give the comoving distance in Mpc.
-        angular_dist   : function to give the comoving distance in Mpc.
-        luminosity_dist: function to give the comoving distance in Mpc.
+        param (object): object containing the parameter values
     
     '''
 

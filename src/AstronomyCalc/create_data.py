@@ -77,9 +77,8 @@ class SPARC_Galaxy_dataset:
             self.download_data()
 
     def read_rotation_curves(self, filename=None, name=None):
-        """
-        Reads the rotation curves from the SPARC dataset.
-        """
+        # Reads the rotation curves from the SPARC dataset.
+
         assert filename is not None or name is not None, "Either filename or name must be provided."
         
         quantities = ['Rad', 'Vobs', 'errV', 'Vgas', 'Vdisk', 'Vbul', 'SBdisk', 'SBbul']
@@ -95,9 +94,8 @@ class SPARC_Galaxy_dataset:
         return {'values': values, 'units': units}
 
     def download_data(self):
-        """
-        Downloads and extracts the SPARC Galaxy dataset.
-        """
+        # Downloads and extracts the SPARC Galaxy dataset.
+
         url = "http://astroweb.cwru.edu/SPARC/Rotmod_LTG.zip"
         target_folder = self.package_folder
         
