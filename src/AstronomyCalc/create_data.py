@@ -109,6 +109,9 @@ class SPARC_Galaxy_dataset:
         Downloads and extracts the SPARC Galaxy dataset.
 
         Downloads the dataset from the specified URL and extracts it to the target folder.
+
+        Returns:
+            str: Path to the extracted data folder.
         """
         url = "http://astroweb.cwru.edu/SPARC/Rotmod_LTG.zip"
         target_folder = self.package_folder
