@@ -11,3 +11,8 @@ Cosmological equations
 ----------------------
 .. automodule:: AstronomyCalc.cosmo_equations
     :members:
+
+Generate data
+-------------
+.. automodule:: AstronomyCalc.create_data
+    :members:

@@ -5,7 +5,7 @@ def z_to_a(z):
     Convert redshift (z) to scale factor (a).
     
     Parameters:
-        param (float or numpy array): redshift value(s).
+        z (float or numpy array): redshift value(s).
     Returns:
         scale factor
     '''
@@ -16,7 +16,7 @@ def a_to_z(a):
     Convert scale factor (a) to redshift (z).
     
     Parameters:
-        param (float or numpy array): scale factor value(s).
+        a (float or numpy array): scale factor value(s).
     Returns:
         redshifts
     '''
