@@ -42,6 +42,8 @@ extensions = [
     'nbsphinx',
 ]
 
+autosummary_generate = True  # Ensure this line is present
+
 # Paths that contain templates
 templates_path = ['templates']
 
