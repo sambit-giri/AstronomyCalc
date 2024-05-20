@@ -79,16 +79,6 @@ class SPARC_Galaxy_dataset:
     def read_rotation_curves(self, filename=None, name=None):
         """
         Reads the rotation curves from the SPARC dataset.
-
-        Parameters:
-            filename (str): The path to the rotation curve file.
-            name (str): The name of the galaxy. If provided, constructs the filename.
-
-        Returns:
-            dict: A dictionary containing the values and units of the rotation curve data.
-
-        Raises:
-            AssertionError: If neither filename nor name is provided.
         """
         assert filename is not None or name is not None, "Either filename or name must be provided."
         
@@ -107,11 +97,6 @@ class SPARC_Galaxy_dataset:
     def download_data(self):
         """
         Downloads and extracts the SPARC Galaxy dataset.
-
-        Downloads the dataset from the specified URL and extracts it to the target folder.
-
-        Returns:
-            str: Path to the extracted data folder.
         """
         url = "http://astroweb.cwru.edu/SPARC/Rotmod_LTG.zip"
         target_folder = self.package_folder
