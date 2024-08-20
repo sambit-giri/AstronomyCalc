@@ -2,14 +2,28 @@
 AstronomyCalc
 =============
 
-This is a package for basic astronomical and cosmological calculations. The source package can be found at `GitHub <https://github.com/sambit-giri/AstronomyCalc>`_.
+This package introduces students to basic astronomical and cosmological calculations. The source package can be found at `GitHub <https://github.com/sambit-giri/AstronomyCalc>`_. Additional Jupyter notebooks, designed to help learners explore concepts by adjusting parameters and observing their effects, will be regularly added to the [notebooks](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) folder.
+
+Package details
+===============
+
+The package provides tools for calculating and solving the following quantities and equations.
+
+* **Friedmann equation**
+* **Cosmological distances**
+    * Comoving distance
+    * Proper distance
+    * Light-travel distance 
+    * Luminosity distance
+    * Angular diameter distance
+* **Age of the universe**
+* **Galaxy rotation curves**
 
 Contents
 ========
 .. toctree::
    :maxdepth: 2
 
-   readme
    installation
    tutorials
    contents

@@ -2,5 +2,5 @@
 Authors
 =======
 
-* `Sambit Giri <https://sambit-giri.github.io/>`_ - `GitHub <https://github.com/sambit-giri>`_
+* `Sambit Giri <https://sambit-giri.github.io/>`_ 
 

@@ -10,14 +10,15 @@ This package introduces students to basic astronomical and cosmological calculat
 
 The package provides tools for calculating and solving the following quantities and equations.
 
-* Friedmann equation
-* Cosmological distances
+* **Friedmann equation**
+* **Cosmological distances**
     * Comoving distance
     * Proper distance
     * Light-travel distance 
     * Luminosity distance
     * Angular diameter distance
-* Age of the universe
+* **Age of the universe**
+* **Galaxy rotation curves**
 
 ## INSTALLATION
 
