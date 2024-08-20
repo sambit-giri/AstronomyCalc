@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger the workflow on pull requests to the main branch
+
+jobs:
+  test:
+    timeout-minutes: 60  # Set a 60-minute timeout for the entire job
+
+    runs-on: ubuntu-latest  # Use Ubuntu for the job
+
+    strategy:
+      matrix:
+        python-version: [3.8]  # Test specifically with Python 3.8
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"  # Ensure Miniconda is installed
+          python-version: ${{ matrix.python-version }}
+          auto-update-conda: true
+          environment-file: environment.yml  # Environment configuration file
+          activate-environment: toolscosmo
+
+      - name: Initialize Conda (if needed)
+        run: |
+          conda init bash
+          source ~/.bashrc
+        shell: bash
+
+      - name: Verify Conda Installation
+        run: |
+          conda info  # Print Conda info to verify installation
+        shell: bash
+
+      - name: Update Python version in Conda environment
+        run: |
+          # Activate the Conda environment and update Python
+          source ~/.bashrc
+          conda activate toolscosmo
+          conda install python=3.8 --update-deps  # Specify exact Python version
+        shell: bash
+
+      - name: Install additional dependencies
+        run: |
+          # Install additional dependencies
+          source ~/.bashrc
+          conda activate toolscosmo
+          conda install -y pip
+          pip install .
+        shell: bash
+
+      - name: Run tests
+        run: |
+          # Run tests using the activated Conda environment
+          source ~/.bashrc
+          conda activate toolscosmo
+          python -m pytest tests  # Run tests using pytest
+        shell: bash
+
