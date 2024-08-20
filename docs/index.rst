@@ -2,7 +2,7 @@
 AstronomyCalc
 =============
 
-This package introduces students to basic astronomical and cosmological calculations. The source package can be found at `GitHub <https://github.com/sambit-giri/AstronomyCalc>`_. Additional Jupyter notebooks, designed to help learners explore concepts by adjusting parameters and observing their effects, will be regularly added to the [notebooks](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) folder.
+This package introduces students to basic astronomical and cosmological calculations. The source package can be found at `GitHub <https://github.com/sambit-giri/AstronomyCalc>`_. Additional Jupyter notebooks, designed to help learners explore concepts by adjusting parameters and observing their effects, will be regularly added to the `notebooks <https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks>`_ folder.
 
 Package details
 ===============

@@ -12,7 +12,7 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(name='AstronomyCalc',
-      version='0.1.0',
+      version='0.1.1',
       author='Sambit Giri',
       author_email='sambit.giri@gmail.com',
       packages=find_packages("src"),
