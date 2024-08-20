@@ -29,7 +29,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           auto-update-conda: true
           environment-file: environment.yml  # Environment configuration file
-          activate-environment: toolscosmo
+          activate-environment: astro
 
       - name: Initialize Conda (if needed)
         run: |
@@ -46,7 +46,7 @@ jobs:
         run: |
           # Activate the Conda environment and update Python
           source ~/.bashrc
-          conda activate toolscosmo
+          conda activate astro
           conda install python=3.8 --update-deps  # Specify exact Python version
         shell: bash
 
@@ -54,7 +54,7 @@ jobs:
         run: |
           # Install additional dependencies
           source ~/.bashrc
-          conda activate toolscosmo
+          conda activate astro
           conda install -y pip
           pip install .
         shell: bash
@@ -63,7 +63,7 @@ jobs:
         run: |
           # Run tests using the activated Conda environment
           source ~/.bashrc
-          conda activate toolscosmo
+          conda activate astro
           python -m pytest tests  # Run tests using pytest
         shell: bash
 
