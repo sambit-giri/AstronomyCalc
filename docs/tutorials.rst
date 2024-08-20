@@ -9,4 +9,4 @@ The following examples will help you get started with ``AstronomyCalc``:
    :maxdepth: 2
    :caption: Examples:
 
-   examples/model_universes
+   examples/tutorials
