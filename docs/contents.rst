@@ -22,6 +22,7 @@ Cosmological Equations
     :members:
     :undoc-members:
     :show-inheritance:
+    :no-index:
 
 Generate Data
 -------------
@@ -29,6 +30,7 @@ Generate Data
     :members:
     :undoc-members:
     :show-inheritance:
+    :no-index:
 
 Parameters
 ----------
