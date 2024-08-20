@@ -43,6 +43,7 @@ extensions = [
 ]
 
 autosummary_generate = True  # Ensure this line is present
+suppress_warnings = ['autodoc.*', 'autosummary.*']
 
 # Paths that contain templates
 templates_path = ['templates']
