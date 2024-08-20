@@ -2,27 +2,37 @@
 Main modules
 ============
 
-Basic functions
+Basic Functions
 ---------------
 .. automodule:: AstronomyCalc.basic_functions
     :members:
+    :undoc-members:
+    :show-inheritance:
 
-Cosmological calculator
+Cosmological Calculator
 -----------------------
 .. automodule:: AstronomyCalc.cosmo_calculator
     :members:
-    
-Cosmological equations
+    :undoc-members:
+    :show-inheritance:
+
+Cosmological Equations
 ----------------------
 .. automodule:: AstronomyCalc.cosmo_equations
     :members:
+    :undoc-members:
+    :show-inheritance:
 
-Generate data
+Generate Data
 -------------
 .. automodule:: AstronomyCalc.create_data
     :members:
+    :undoc-members:
+    :show-inheritance:
 
 Parameters
 ----------
 .. automodule:: AstronomyCalc.param
     :members:
+    :undoc-members:
+    :show-inheritance:
