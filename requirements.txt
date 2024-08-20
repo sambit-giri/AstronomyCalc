@@ -8,5 +8,4 @@ pandas
 emcee
 corner
 wget
-zipfile
 pkg_resources
