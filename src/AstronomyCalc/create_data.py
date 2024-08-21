@@ -54,6 +54,37 @@ def Hubble1929_data(data_link=None):
     # print(df.head())
     return np.array(df['distance']), np.array(df['velocity'])
 
+def SPARC_galaxy_rotation_curves_data(filename=None, name=None):
+    """
+    Retrieves the rotation curve data for a specific galaxy from the SPARC dataset.
+
+    This function utilizes the SPARC_Galaxy_dataset class to read the rotation curves
+    of galaxies from the SPARC dataset. The data can be accessed either by directly 
+    providing the filename or by specifying the galaxy name.
+
+    Parameters:
+        filename (str, optional): The path to the rotation curve file. If provided, 
+                                  this file will be used directly.
+        name (str, optional): The name of the galaxy for which to retrieve rotation 
+                              curve data. If provided, the function will look for 
+                              the corresponding file in the dataset.
+
+    Returns:
+        dict: A dictionary containing the rotation curve data. The dictionary has two keys:
+            - 'values': A dictionary where each key corresponds to a specific quantity 
+                        (e.g., 'Rad', 'Vobs') and the value is an array of data for 
+                        that quantity.
+            - 'units': A dictionary mapping each quantity to its unit (e.g., 'kpc', 
+                       'km/s').
+
+    Raises:
+        AssertionError: If neither `filename` nor `name` is provided, the function 
+                        raises an assertion error, requiring one of the inputs.
+    """
+    SPARC = SPARC_Galaxy_dataset()
+    data = SPARC.read_rotation_curves(filename=filename, name=name)
+    return data
+
 class SPARC_Galaxy_dataset:
     """
     A class to handle the SPARC Galaxy dataset (http://astroweb.cwru.edu/SPARC/).
