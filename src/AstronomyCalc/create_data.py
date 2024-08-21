@@ -6,7 +6,7 @@ import os, requests, zipfile, pkg_resources, wget
 
 from .cosmo_equations import *
 
-def line_data(true_m=2, true_b=1, sigma=1, n_samples=50):
+def line_data(true_m=2, true_b=1, sigma=1, n_samples=50, error_sigma=None):
     """
     Generate synthetic linear data for testing and modeling.
 
@@ -39,7 +39,11 @@ def line_data(true_m=2, true_b=1, sigma=1, n_samples=50):
     np.random.seed(42)  # For reproducibility
     x = np.linspace(0, 10, n_samples)
     y = true_m * x + true_b + np.random.normal(0, sigma, size=x.shape)
-    data = np.column_stack((x, y))
+    if error_sigma is None:
+        data = np.column_stack((x, y))
+    else:
+        y_error = np.abs(np.random.normal(sigma, error_sigma, size=x.shape))
+        data = np.column_stack((x, y, y_error))
     return data
 
 

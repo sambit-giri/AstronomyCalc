@@ -53,8 +53,16 @@ class MetropolisHastings:
         cov_matrix = np.cov(samples_flattened, rowvar=False)
         self.proposal_cov = cov_matrix*scale_factor
         return self.proposal_cov
+    
+    def initialise(self, initial_value):
+        n_start = self.samples.shape[1]
+        if initial_value is None and n_start == 1:
+            print('Provide initial position values for the walkers.')
+            return None
+        elif initial_value is not None:
+            self.samples[:, 0, :] = initial_value
 
-    def walk(self, walker_num, proposal_cov):
+    def _walk(self, walker_num, proposal_cov):
         mean = self.samples[walker_num, -1, :]
         next_sample, q_next_mean, q_mean_next = self.draw_from_proposal(mean, proposal_cov)
         p_acc = self.acceptance_probability(mean, next_sample, q_next_mean, q_mean_next)
@@ -66,25 +74,26 @@ class MetropolisHastings:
         # print(new_samples, u_acc, p_acc)
         return np.array(new_samples)
     
+    def walk(self, proposal_cov):
+        backend = 'threading'  # 'loky' can be used for better performance in some cases
+        new_samples = Parallel(n_jobs=self.n_jobs, backend=backend)(
+                    delayed(self._walk)(walker_num, proposal_cov) for walker_num in range(self.nwalkers)
+                    )
+        # new_samples = np.array([self.walk(walker_num, proposal_cov) for walker_num in range(self.nwalkers)])
+        self.samples = np.concatenate((self.samples, np.array(new_samples)[:, None, :]), axis=1)
+        return new_samples
+    
     def run_sampler(self, n_samples, initial_value=None, adapt_window=None):
         n_start = self.samples.shape[1]
-        if initial_value is None and n_start == 1:
-            print('Provide initial position values for the walkers.')
-            return None
-        elif initial_value is not None:
-            self.samples[:, 0, :] = initial_value
+        self.initialise(initial_value)
         
-        backend = 'threading'  # 'loky' can be used for better performance in some cases
         for n_step in tqdm(range(n_start, n_samples+1)):
             if n_step==n_start:
                 pass
             else:
                 proposal_cov = self.adapt_proposal_covariance(n_step, adapt_window=adapt_window)
-                new_samples = Parallel(n_jobs=self.n_jobs, backend=backend)(
-                    delayed(self.walk)(walker_num, proposal_cov) for walker_num in range(self.nwalkers)
-                    )
-                # new_samples = np.array([self.walk(walker_num, proposal_cov) for walker_num in range(self.nwalkers)])
-                self.samples = np.concatenate((self.samples, np.array(new_samples)[:, None, :]), axis=1)
+                new_samples = self.walk(proposal_cov)
+                # self.samples = np.concatenate((self.samples, np.array(new_samples)[:, None, :]), axis=1)
 
         return self.samples
     
