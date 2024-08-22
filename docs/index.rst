@@ -17,6 +17,7 @@ The package provides tools for calculating and solving the following quantities 
     * Luminosity distance
     * Angular diameter distance
 * **Age of the universe**
+* **Cosmological parameter inference**
 * **Galaxy rotation curves**
 
 Contents
