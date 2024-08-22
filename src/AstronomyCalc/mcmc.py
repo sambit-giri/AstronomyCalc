@@ -22,7 +22,6 @@ class ImportanceSampling:
         - proposal_cov (array-like, optional): The covariance matrix of the Gaussian proposal distribution. Default is the identity matrix.
         """
         self.target_distribution = target_distribution
-        self.n_samples = n_samples
         self.n_jobs = n_jobs
         
         # Set up default proposal distribution as Gaussian if not provided
@@ -70,7 +69,7 @@ class ImportanceSampling:
         return norm_const * np.exp(-0.5 * result)
 
     def sample(self, n_samples=10000):
-        samples = self.proposal_sampler(self.n_samples)
+        samples = self.proposal_sampler(n_samples)
         target_probs = self.target_distribution(samples)
         proposal_probs = self.proposal_distribution(samples)
 
@@ -361,10 +360,6 @@ if __name__ == '__main__':
     plt.ylabel('b')
     plt.colorbar(label='Importance Weights')
     plt.show()
-
-    # Estimate expectation of a function, e.g., the mean of the slope parameter `m`
-    expectation_m = is_sampler.estimate_expectation(lambda x: x[:, 0])
-    print("Estimated Expectation of m:", expectation_m)
 
     plot_posterior_corner(samples, labels, truths=true_param, weights=weights)
 
