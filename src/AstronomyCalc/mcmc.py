@@ -5,6 +5,103 @@ from joblib import Parallel, delayed
 from tqdm import tqdm
 import corner
 
+class ImportanceSampling:
+    """
+    Simple Importance Sampling for estimating expectations with MCMC.
+    """
+    def __init__(self, target_distribution, proposal_distribution=None, proposal_sampler=None, n_samples=10000, n_jobs=1, proposal_mean=None, proposal_cov=None):
+        """
+        Initialize the Importance Sampling class.
+        
+        Parameters:
+        - target_distribution (function): The target probability distribution (unnormalized) from which we want to sample.
+        - proposal_distribution (function, optional): The proposal probability distribution we can sample from. Default is a Gaussian distribution.
+        - proposal_sampler (function, optional): A function that generates samples from the proposal distribution. Default is a Gaussian sampler.
+        - n_samples (int): The number of samples to draw. Default is 10,000.
+        - n_jobs (int): Number of parallel jobs for sampling. Default is 1.
+        - proposal_mean (array-like, optional): The mean of the Gaussian proposal distribution. Default is a zero vector.
+        - proposal_cov (array-like, optional): The covariance matrix of the Gaussian proposal distribution. Default is the identity matrix.
+        """
+        self.target_distribution = target_distribution
+        self.n_samples = n_samples
+        self.n_jobs = n_jobs
+        
+        # Set up default proposal distribution as Gaussian if not provided
+        self.proposal_mean = proposal_mean if proposal_mean is not None else np.zeros(2)
+        self.proposal_cov = proposal_cov if proposal_cov is not None else np.eye(2)
+        
+        if proposal_distribution is None:
+            self.proposal_distribution = self._gaussian_proposal_distribution
+        else:
+            self.proposal_distribution = proposal_distribution
+        
+        if proposal_sampler is None:
+            self.proposal_sampler = self._gaussian_proposal_sampler
+        else:
+            self.proposal_sampler = proposal_sampler
+
+    def _gaussian_proposal_sampler(self, n_samples):
+        """
+        Default Gaussian proposal sampler.
+        
+        Parameters:
+        - n_samples (int): The number of samples to generate.
+        
+        Returns:
+        - samples (np.ndarray): The generated samples from a Gaussian distribution.
+        """
+        return np.random.multivariate_normal(self.proposal_mean, self.proposal_cov, size=n_samples)
+    
+    def _gaussian_proposal_distribution(self, x):
+        """
+        Default Gaussian proposal distribution (pdf).
+        
+        Parameters:
+        - x (np.ndarray): The points at which to evaluate the proposal distribution.
+        
+        Returns:
+        - prob (np.ndarray): The probability density of the points under the Gaussian distribution.
+        """
+        size = len(self.proposal_mean)
+        det = np.linalg.det(self.proposal_cov)
+        norm_const = 1.0 / (np.power((2 * np.pi), float(size) / 2) * np.power(det, 1.0 / 2))
+        x_mu = x - self.proposal_mean
+        inv = np.linalg.inv(self.proposal_cov)
+        result = np.einsum('...k,kl,...l->...', x_mu, inv, x_mu)
+        return norm_const * np.exp(-0.5 * result)
+
+    def sample(self):
+        """
+        Perform Importance Sampling and return the weighted samples.
+        
+        Returns:
+        - samples (np.ndarray): The sampled points.
+        - weights (np.ndarray): The importance weights for each sample.
+        """
+        samples = self.proposal_sampler(self.n_samples)
+        target_probs = self.target_distribution(samples)
+        proposal_probs = self.proposal_distribution(samples)
+
+        # Compute the importance weights
+        weights = target_probs / proposal_probs
+        weights /= np.sum(weights)  # Normalize weights to sum to 1
+
+        return samples, weights
+
+    def estimate_expectation(self, function):
+        """
+        Estimate the expectation of a function under the target distribution using the samples.
+        
+        Parameters:
+        - function (callable): The function for which the expectation is estimated.
+        
+        Returns:
+        - expectation (float): The estimated expectation value.
+        """
+        samples, weights = self.sample()
+        expectations = function(samples)
+        return np.sum(weights * expectations)
+
 class MetropolisHastings:
     '''
     Metropolis-Hastings Algorithm for Monte Carlo Markov Chains.
@@ -111,7 +208,7 @@ def plot_posterior_corner(flat_samples, labels, truths=None,
 
     Parameters:
     - flat_samples (dict or array-like): Dictionary with dataset names as keys and MCMC samples as values,
-      or just the samples array if only one dataset is present.
+        or just the samples array if only one dataset is present.
     - labels (list of str): Labels for the parameters.
     - truths (array-like): True parameter values for comparison.
     - confidence_levels (list of float): Confidence levels for the contours (e.g., [0.68, 0.95]).
@@ -123,7 +220,7 @@ def plot_posterior_corner(flat_samples, labels, truths=None,
     """
     if not isinstance(flat_samples, dict):
         flat_samples = {None: flat_samples}
-    
+
     if confidence_levels is None:
         confidence_levels = [0.68, 0.95, 0.99]  # Default to 1-sigma and 2-sigma levels
 
@@ -232,4 +329,32 @@ if __name__ == '__main__':
     plt.show()
 
     plot_posterior_corner(flat_samples, labels, truths=true_param)
+
+    def target_distribution(param):
+        return np.exp(log_probability(param))
+    
+    print(target_distribution(true_param))
+    print(target_distribution([0,1]))
+    print(target_distribution([10,1]))
+
+    # Set up the proposal distribution mean and covariance
+    proposal_mean = [2.5, 1.5]
+    proposal_cov = [[1.0, 0.5], [0.5, 1.0]]
+
+    # Initialize the Importance Sampling with default Gaussian proposal
+    is_sampler = ImportanceSampling(target_distribution, proposal_mean=proposal_mean, proposal_cov=proposal_cov, n_samples=10000)
+
+    # Draw samples and compute expectation
+    samples, weights = is_sampler.sample()
+
+    # Plot samples
+    plt.scatter(samples[:, 0], samples[:, 1], c=weights, cmap='viridis', alpha=0.5)
+    plt.xlabel('m')
+    plt.ylabel('b')
+    plt.colorbar(label='Importance Weights')
+    plt.show()
+
+    # Estimate expectation of a function, e.g., the mean of the slope parameter `m`
+    expectation_m = is_sampler.estimate_expectation(lambda x: x[:, 0])
+    print("Estimated Expectation of m:", expectation_m)
 
