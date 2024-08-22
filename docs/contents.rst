@@ -9,6 +9,13 @@ Basic Functions
     :undoc-members:
     :show-inheritance:
 
+Bayesian Inference
+------------------
+.. automodule:: AstronomyCalc.mcmc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Cosmological Calculator
 -----------------------
 .. automodule:: AstronomyCalc.cosmo_calculator
