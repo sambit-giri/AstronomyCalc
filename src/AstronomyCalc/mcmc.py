@@ -9,7 +9,7 @@ class ImportanceSampling:
     """
     Simple Importance Sampling for estimating expectations with MCMC.
     """
-    def __init__(self, target_distribution, proposal_distribution=None, proposal_sampler=None, n_samples=10000, n_jobs=1, proposal_mean=None, proposal_cov=None):
+    def __init__(self, target_distribution, proposal_distribution=None, proposal_sampler=None, n_jobs=1, proposal_mean=None, proposal_cov=None):
         """
         Initialize the Importance Sampling class.
         
@@ -70,7 +70,7 @@ class ImportanceSampling:
         result = np.einsum('...k,kl,...l->...', x_mu, inv, x_mu)
         return norm_const * np.exp(-0.5 * result)
 
-    def sample(self):
+    def sample(self, n_samples=10000):
         """
         Perform Importance Sampling and return the weighted samples.
         
@@ -201,7 +201,7 @@ class MetropolisHastings:
         return samples_flattened
     
 
-def plot_posterior_corner(flat_samples, labels, truths=None, 
+def plot_posterior_corner(flat_samples, labels, truths=None, weights=None,
                    confidence_levels=None, smooth=0.5, smooth1d=0.5):
     """
     Plots the posterior distributions with corner plots including 1-sigma and 2-sigma contours.
@@ -230,6 +230,7 @@ def plot_posterior_corner(flat_samples, labels, truths=None,
         print(flats.shape)
         fig = corner.corner(
             flats,
+            weights=weights,
             fig=fig,
             labels=labels,
             truths=truths,
@@ -257,7 +258,6 @@ def plot_posterior_corner(flat_samples, labels, truths=None,
 
     plt.show()
 
-
 if __name__ == '__main__':
     import AstronomyCalc
     import numpy as np
@@ -265,7 +265,7 @@ if __name__ == '__main__':
 
     true_m = 2
     true_b = 1
-    x_obs, y_obs = AstronomyCalc.create_data.line_data(true_m=true_m, true_b=true_b, sigma=2).T
+    x_obs, y_obs, y_err = AstronomyCalc.line_data(true_m=true_m, true_b=true_b, sigma=2, error_sigma=0.5).T
 
     def model(param):
         m, b = param
@@ -273,15 +273,15 @@ if __name__ == '__main__':
     
     true_param = [true_m,true_b]
     plt.title('Observation')
-    plt.scatter(x_obs, y_obs, color='k')
-    plt.plot(x_obs, model(true_param), color='k')
+    plt.errorbar(x_obs, y_obs, yerr=y_err, color='k', ls=' ', marker='o')
+    plt.plot(x_obs, model(true_param), color='r', ls='--')
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.show()
 
     def log_likelihood(param):
         y_mod = model(param)
-        y_err = 0.5*y_obs
+        # y_err = 0.5*y_obs
         logL = -np.sum((y_obs-y_mod)**2/2/y_err**2)
         return logL
     
@@ -305,16 +305,16 @@ if __name__ == '__main__':
     print(log_probability([10,1]))
 
     # Example usage
-    nwalkers = 8
+    nwalkers = 16
     ndim = 2
-    n_samples = 1000
+    n_samples = 2000
     initial_value = np.random.uniform(size=(nwalkers, ndim))*(maxs-mins)+mins
 
-    mh = MetropolisHastings(nwalkers=nwalkers, ndim=ndim, log_probability=log_probability, 
+    mh_sampler = MetropolisHastings(nwalkers=nwalkers, ndim=ndim, log_probability=log_probability, 
                             proposal_cov=np.eye(ndim), n_jobs=2)
-    samples = mh.run_sampler(n_samples=n_samples, initial_value=initial_value)
+    samples = mh_sampler.run_sampler(n_samples=n_samples, initial_value=initial_value)
     print("Samples shape:", samples.shape)
-    flat_samples = mh.get_flat_samples(burn_in=10)
+    flat_samples = mh_sampler.get_flat_samples(burn_in=100)
     print('Flat samples shape:', flat_samples.shape)
 
     labels = ['$m$', '$b$']
@@ -331,7 +331,8 @@ if __name__ == '__main__':
     plot_posterior_corner(flat_samples, labels, truths=true_param)
 
     def target_distribution(param):
-        return np.exp(log_probability(param))
+        if np.array(param).ndim==1: return np.exp(log_probability(param))
+        else: return np.array([np.exp(log_probability(par)) for par in param])
     
     print(target_distribution(true_param))
     print(target_distribution([0,1]))
@@ -339,16 +340,17 @@ if __name__ == '__main__':
 
     # Set up the proposal distribution mean and covariance
     proposal_mean = [2.5, 1.5]
-    proposal_cov = [[1.0, 0.5], [0.5, 1.0]]
+    proposal_cov = [[2.0, 1.5], [1.5, 2.0]]
 
     # Initialize the Importance Sampling with default Gaussian proposal
-    is_sampler = ImportanceSampling(target_distribution, proposal_mean=proposal_mean, proposal_cov=proposal_cov, n_samples=10000)
+    is_sampler = ImportanceSampling(target_distribution, proposal_mean=proposal_mean, proposal_cov=proposal_cov)
 
     # Draw samples and compute expectation
-    samples, weights = is_sampler.sample()
+    samples, weights = is_sampler.sample(n_samples=1000)
 
     # Plot samples
-    plt.scatter(samples[:, 0], samples[:, 1], c=weights, cmap='viridis', alpha=0.5)
+    plt.scatter(samples[:, 0], samples[:, 1], c=weights, cmap='viridis', alpha=0.2)
+    plt.scatter(true_m, true_b, marker='X', color='red')
     plt.xlabel('m')
     plt.ylabel('b')
     plt.colorbar(label='Importance Weights')
@@ -357,4 +359,6 @@ if __name__ == '__main__':
     # Estimate expectation of a function, e.g., the mean of the slope parameter `m`
     expectation_m = is_sampler.estimate_expectation(lambda x: x[:, 0])
     print("Estimated Expectation of m:", expectation_m)
+
+    plot_posterior_corner(samples, labels, truths=true_param, weights=weights)
 
