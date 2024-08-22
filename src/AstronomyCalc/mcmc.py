@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
 from joblib import Parallel, delayed
 from tqdm import tqdm
@@ -33,8 +34,9 @@ class MetropolisHastings:
     def acceptance_probability(self, mean, next_sample, q_next_mean, q_mean_next):
         logp_next = self.log_probability(next_sample)
         logp_mean = self.log_probability(mean)
-        # print(logp_next, logp_mean)
+        np.seterr(over='ignore')
         r = np.exp(logp_next-logp_mean, dtype=np.float64)*q_mean_next/q_next_mean
+        np.seterr(over='warn')
         A = min(1, r)
         return A
 
@@ -102,7 +104,7 @@ class MetropolisHastings:
         return samples_flattened
     
 
-def plot_posterior(flat_samples, labels, truths=None, 
+def plot_posterior_corner(flat_samples, labels, truths=None, 
                    confidence_levels=None, smooth=0.5, smooth1d=0.5):
     """
     Plots the posterior distributions with corner plots including 1-sigma and 2-sigma contours.
@@ -186,8 +188,8 @@ if __name__ == '__main__':
         logL = -np.sum((y_obs-y_mod)**2/2/y_err**2)
         return logL
     
-    mins = np.array([-3,-4])
-    maxs = np.array([6,4])
+    mins = np.array([-2,-3])
+    maxs = np.array([6,5])
     def log_prior(param):
         m, b = param
         if mins[0]<=m<=maxs[0] and mins[1]<=b<=maxs[1]:
@@ -229,5 +231,5 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.show()
 
-    plot_posterior(flat_samples, labels, truths=true_param)
+    plot_posterior_corner(flat_samples, labels, truths=true_param)
 
