@@ -17,24 +17,11 @@ def line_data(true_m=2, true_b=1, sigma=1, n_samples=50, error_sigma=None):
     Parameters:
     - true_m (float): The slope of the line. Defaults to 2.
     - true_b (float): The y-intercept of the line. Defaults to 1.
-    - sigma (float): The standard deviation of the Gaussian noise added to the 
-        y-values. Defaults to 1.
+    - sigma (float): The standard deviation of the Gaussian noise added to the y-values. Defaults to 1.
     - n_samples (int): The number of data points to generate. Defaults to 50.
 
     Returns:
-    - np.ndarray: A 2D array where each row is a data point with two columns:
-        the x-value and the corresponding y-value. The x-values are evenly spaced 
-        between 0 and 10, and the y-values are generated according to the line 
-        equation `y = true_m * x + true_b` with added Gaussian noise.
-
-    Example:
-    >>> data = line_data(true_m=3, true_b=-2, sigma=0.5, n_samples=100)
-    >>> print(data[:5])
-    [[ 0.         -2.2879497 ]
-        [ 0.1010101  -2.03269795]
-        [ 0.2020202  -1.64438356]
-        [ 0.3030303  -1.78390832]
-        [ 0.4040404  -1.72374426]]
+    - np.ndarray: A 2D array where each row is a data point with two columns: the x-value and the corresponding y-value. The x-values are evenly spaced between 0 and 10, and the y-values are generated according to the line equation `y = true_m * x + true_b` with added Gaussian noise.
     """
     np.random.seed(42)  # For reproducibility
     x = np.linspace(0, 10, n_samples)
