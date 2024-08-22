@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 from astropy.cosmology import LambdaCDM
 from astropy import units as u 
-import os, requests, zipfile, pkg_resources, wget
+import os, requests, zipfile, wget
+import importlib.resources as pkg_resources
 
 from .cosmo_equations import *
 
