@@ -1,0 +1,3 @@
+[submodule "src/AstronomyCalc/input_data/sn_data"]
+	path = src/AstronomyCalc/input_data/sn_data
+	url = https://github.com/CobayaSampler/sn_data.git
