@@ -3,7 +3,7 @@
 ![CI Status](https://github.com/sambit-giri/AstronomyCalc/actions/workflows/ci.yml/badge.svg)
 [![GitHub Repository](https://img.shields.io/github/repo-size/sambit-giri/AstronomyCalc)](https://github.com/sambit-giri/AstronomyCalc)
 
-This package introduces students to basic astronomical and cosmological calculations. More detailed documentation is available on the [ReadTheDocs](https://AstronomyCalc.readthedocs.io/) page. Additional Jupyter notebooks, designed to help learners explore concepts by adjusting parameters and observing their effects, will be regularly added to the [notebooks](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) folder.
+This package introduces students to basic astronomical calculations and data analysis methods. More detailed documentation is available on the [ReadTheDocs](https://AstronomyCalc.readthedocs.io/) page. Additional Jupyter notebooks, designed to help learners explore concepts by adjusting parameters and observing their effects, will be regularly added to the [notebooks](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) folder.
 
 
 ## Package details

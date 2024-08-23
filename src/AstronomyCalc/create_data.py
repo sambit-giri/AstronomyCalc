@@ -35,7 +35,7 @@ def line_data(true_m=2, true_b=1, sigma=1, n_samples=50, error_sigma=None):
     return data
 
 
-def distance_modulus(n_samples=100, z0=0.3, dmu_0=0.1, dmu_1=0.02, random_state=42, cosmo=None, param=None):
+def generate_distance_modulus(n_samples=100, z0=0.3, dmu_0=0.1, dmu_1=0.02, random_state=42, cosmo=None, param=None):
     """
     Generate a dataset of distance modulus (mu) vs redshift.
     
@@ -82,6 +82,15 @@ def Hubble1929_data(data_link=None):
     df = pd.read_csv(data_link)
     # print(df.head())
     return np.array(df['distance']), np.array(df['velocity'])
+
+def DES_5YR_distance_modulus():
+    try:
+        from dessndr import data, utils
+    except:
+        print('dessndr package is needed to get DES 5YR data.')
+        print('Homepage: https://des-sn-dr.readthedocs.io/en/latest/index.html')
+        print('GitHub repo: https://github.com/BrunoSanchez/DES-SN-DR.git')
+        return None
 
 def SPARC_galaxy_rotation_curves_data(filename=None, name=None):
     """
@@ -131,7 +140,7 @@ class SPARC_Galaxy_dataset:
 
         If the data folder does not exist, it triggers the download of the dataset.
         """
-        self.package_folder = pkg_resources.resource_filename('AstronomyCalc', 'input_data/')
+        self.package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
         self.data_folder = os.path.join(self.package_folder, "Rotmod_LTG")
         if not os.path.exists(self.data_folder):
             self.download_data()
@@ -170,3 +179,11 @@ class SPARC_Galaxy_dataset:
         print("...download and extraction successful.")
 
         return zip_file_target
+    
+def download_data(url, target_folder=None):
+    package_folder = pkg_resources.files('AstronomyCalc').joinpath('input_data')
+    if target_folder is None:
+        target_folder = str(package_folder)
+    wget.download(url, target_folder)
+    print(f'data saved at {target_folder}')
+    return None
