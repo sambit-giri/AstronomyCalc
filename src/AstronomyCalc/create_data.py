@@ -83,14 +83,14 @@ def Hubble1929_data(data_link=None):
     # print(df.head())
     return np.array(df['distance']), np.array(df['velocity'])
 
-def DES_5YR_distance_modulus():
-    try:
-        from dessndr import data, utils
-    except:
-        print('dessndr package is needed to get DES 5YR data.')
-        print('Homepage: https://des-sn-dr.readthedocs.io/en/latest/index.html')
-        print('GitHub repo: https://github.com/BrunoSanchez/DES-SN-DR.git')
-        return None
+def PantheonPlus_distance_modulus():
+    package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
+    data_folder = os.path.join(package_folder, "PantheonPlus")
+    mean_file = os.path.join(data_folder, "Pantheon+SH0ES.dat")
+    cov_file = os.path.join(data_folder, "Pantheon+SH0ES_STAT+SYS.cov")
+    mean = np.loadtxt(mean_file)
+    cov  = np.loadtxt(cov_file)
+    return {'mean': mean, 'cov': cov}
 
 def SPARC_galaxy_rotation_curves_data(filename=None, name=None):
     """
