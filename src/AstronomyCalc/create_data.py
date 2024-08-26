@@ -83,14 +83,64 @@ def Hubble1929_data(data_link=None):
     # print(df.head())
     return np.array(df['distance']), np.array(df['velocity'])
 
-def PantheonPlus_distance_modulus():
+def PantheonPlus_distance_modulus(zmin=0.023, zmax=6, zval='hd'):
+    #string values for the redshift parameter
+    zval_keys = ['hd', 'helio', 'cmb']
+    assert zval in zval_keys
+
     package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
     data_folder = os.path.join(package_folder, "PantheonPlus")
     mean_file = os.path.join(data_folder, "Pantheon+SH0ES.dat")
-    cov_file = os.path.join(data_folder, "Pantheon+SH0ES_STAT+SYS.cov")
-    mean = np.loadtxt(mean_file)
-    cov  = np.loadtxt(cov_file)
-    return {'mean': mean, 'cov': cov}
+    cmat_file = os.path.join(data_folder, "Pantheon+SH0ES_STAT+SYS.cov")
+
+    ## Data vector ## 
+    panthplus = np.loadtxt(mean_file, dtype=str)[1:]
+    panthcols = np.loadtxt(mean_file, dtype=str)[0]
+    hd_indexx = np.where(panthcols == 'zHD')[0][0]
+    cmb_indexx = np.where(panthcols == 'zCMB')[0][0]
+    hel_indexx = np.where(panthcols == 'zHEL')[0][0]
+    if zval == 'hd':
+        zindexx = hd_indexx
+    elif zval == 'helio':
+        zindexx = hel_indexx
+    elif zval == 'cmb':
+        zindexx = cmb_indexx
+
+    nocalib_cond = (panthplus[:, np.where(panthcols == 'IS_CALIBRATOR')[0][0]] == '0')  & (panthplus[:, zindexx].astype('float32') >= zmin) & (panthplus[:, np.where(panthcols == 'zHD')[0][0]].astype('float32') <= zmax)
+    newcal_cond =  (panthplus[:, np.where(panthcols == 'IS_CALIBRATOR')[0][0]] == '1') | ((panthplus[:, zindexx].astype('float32') >= zmin) & (panthplus[:, np.where(panthcols == 'zHD')[0][0]].astype('float32') <= zmax))     
+    hf_cond =  (panthplus[:, zindexx].astype('float32') >= zmin) & (panthplus[:, np.where(panthcols == 'zHD')[0][0]].astype('float32') <= zmax)
+
+    panth_noshoes = panthplus[nocalib_cond]
+    panth_newcal = panthplus[newcal_cond]
+    panth_nocal = panthplus[hf_cond]
+
+    if zval == 'hd':
+        zarr = panth_noshoes[:,hd_indexx].astype('float32')
+        znew = panth_newcal[:,hd_indexx].astype('float32')
+    elif zval == 'helio':
+        zarr = panth_noshoes[:,hel_indexx].astype('float32')
+        znew = panth_newcal[:,hel_indexx].astype('float32')
+    elif zval == 'cmb':
+        zarr = panth_noshoes[:,cmb_indexx].astype('float32')
+        znew = panth_newcal[:,cmb_indexx].astype('float32')
+
+    zarr2 = panth_nocal[:,hd_indexx].astype('float32')
+    mu_hd_newcal = panth_newcal[:,np.where(panthcols == 'm_b_corr')[0][0]].astype('float32')
+
+    calibcol_index = np.where(panthcols == 'IS_CALIBRATOR')[0][0]
+    mu_shoes = panth_newcal[panth_newcal[:, calibcol_index] == '1'][:,np.where(panthcols == 'MU_SH0ES')[0][0]].astype('float32')
+
+    ## Covariance matrix ##
+    cov_mat_sys = np.loadtxt(cmat_file, skiprows=1)
+    cov_mat_sys_shape = cov_mat_sys.reshape(len(panthplus), len(panthplus))
+    cond_indices = np.where(nocalib_cond)[0]
+
+    cond_hf_indices = np.where(hf_cond)[0]
+    cond_newcal_indices = np.where(newcal_cond)[0]
+    cov_mat_newcal = cov_mat_sys_shape[cond_newcal_indices][:, cond_newcal_indices]
+    c_inv_newcal = np.linalg.inv(cov_mat_newcal)
+
+    return {'z': znew, 'data': mu_hd_newcal, 'cov': cov_mat_newcal, 'cov_inv': c_inv_newcal}
 
 def SPARC_galaxy_rotation_curves_data(filename=None, name=None):
     """
