@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath('../src/'))
 project = 'AstronomyCalc'
 copyright = '2022, Sambit Giri'
 author = 'Sambit Giri'
-version = release = '1.1'
+version = release = '1.0'
 
 # -- General configuration ---------------------------------------------------
 
