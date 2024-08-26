@@ -101,6 +101,6 @@ In the Einstein-de Sitter and Planck models, the proper distance exhibits a turn
 
 # Acknowledgements
 
-We acknowledge Garrelt Mellema for helpful discussion. Nordita is supported in part by NordForsk.
+We acknowledge the teaching courses provided by Stockholm University. Nordita is supported in part by NordForsk.
 
 # References
