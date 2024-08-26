@@ -1,6 +1,6 @@
 # Paper submission
 
-Toolscosmo paper for submission to the [Journal of Open Source Science](https://joss.theoj.org/).
+AstronomyCalc paper for submission to the [Journal of Open Source Science](https://joss.theoj.org/).
 
 [Paper submission instructions](https://joss.readthedocs.io/en/latest/submitting.html) -
 this link also includes formatting instructions.
