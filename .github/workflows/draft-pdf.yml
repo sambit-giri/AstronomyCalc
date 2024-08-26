@@ -2,10 +2,9 @@ name: Draft PDF
 on:
     push:
       paths:
-        - paper.md
-        - paper.bib
-        - cosmo_distance.png
+        - paper/**
         - .github/workflows/draft-pdf.yml
+        
 jobs:
   paper:
     runs-on: ubuntu-latest
