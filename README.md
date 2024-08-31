@@ -1,7 +1,8 @@
 # AstronomyCalc
 
-![CI Status](https://github.com/sambit-giri/AstronomyCalc/actions/workflows/ci.yml/badge.svg)
+[![License](https://img.shields.io/github/license/sambit-giri/AstronomyCalc.svg)](https://github.com/sambit-giri/AstronomyCalc/blob/main/LICENSE)
 [![GitHub Repository](https://img.shields.io/github/repo-size/sambit-giri/AstronomyCalc)](https://github.com/sambit-giri/AstronomyCalc)
+![CI Status](https://github.com/sambit-giri/AstronomyCalc/actions/workflows/ci.yml/badge.svg)
 [![PyPI version](https://badge.fury.io/py/AstronomyCalc.svg)](https://badge.fury.io/py/AstronomyCalc)
 
 This package introduces students to basic astronomical calculations and data analysis methods. More detailed documentation is available on the [ReadTheDocs](https://AstronomyCalc.readthedocs.io/) page. Additional Jupyter notebooks, designed to help learners explore concepts by adjusting parameters and observing their effects, will be regularly added to the [notebooks](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) folder.
