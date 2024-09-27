@@ -12,7 +12,7 @@ authors:
     orcid: 0000-0002-2560-536X
     affiliation: "1" 
 affiliations:
- - name: Nordita, KTH Royal Institute of Technology and Stockholm University, Hannes Alf\'vens v\"ag 12, SE-106 91 Stockholm, Sweden
+ - name: Nordita, KTH Royal Institute of Technology and Stockholm University, Hannes Alfvéns väg 12, SE-106 91 Stockholm, Sweden
    index: 1
 date: 26 August 2024
 bibliography: paper.bib
