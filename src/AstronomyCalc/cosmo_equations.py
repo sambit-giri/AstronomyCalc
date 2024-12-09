@@ -1,8 +1,9 @@
 import numpy as np
 from scipy.integrate import quad
+from astropy import units as u
+from astropy import constants as const
 
 from .basic_functions import *
-from . import constants as const
 
 class FriedmannEquation:
     '''
@@ -33,15 +34,15 @@ class FriedmannEquation:
 
     def H(self, z=None, a=None):
         assert z is not None or a is not None 
-        if z is not None: return self.Hz(z)
-        else: return self.Ha(a)
+        if z is not None: return self.Hz(z)*u.km/u.Mpc/u.s
+        else: return self.Ha(a)*u.km/u.Mpc/u.s
     
     def age(self, z=None, a=None):
         assert z is not None or a is not None
         if a is None: a = z_to_a(z)
         I = lambda a: 1/a/self.H(a=a)
-        t = lambda a: quad(I, 0, a)[0]*const.Mpc_to_km/const.Gyr_to_s
-        return np.vectorize(t)(a) 
+        t = lambda a: quad(lambda x: I(x).value, 0, a)[0]
+        return (np.vectorize(t)(a)*I(1).unit).to('Gyr') 
 
 class CosmoDistances(FriedmannEquation):
     '''
@@ -65,11 +66,11 @@ class CosmoDistances(FriedmannEquation):
         self.create_functions()
 
     def Hubble_dist(self):
-        return const.c_kmps/self.H(z=0)
+        return const.c/self.H(z=0)
 
     def _comoving_dist(self, z):
-        I = lambda z: const.c_kmps/self.H(z=z)
-        return quad(I, 0, z)[0] # Mpc
+        I = lambda z: const.c/self.H(z=z)
+        return (quad(lambda x: I(x).value, 0, z)[0]*I(0).unit).to('Mpc') # Mpc
 
     def comoving_dist(self, z=None, a=None):
         if a is not None: z = a_to_z(a)
@@ -82,7 +83,7 @@ class CosmoDistances(FriedmannEquation):
     def light_travel_dist(self, z=None, a=None):
         t0 = self.age(z=0)
         te = self.age(z=z, a=a)
-        return const.c_kmps*(t0-te)*const.Gyr_to_s/const.Mpc_to_km
+        return (const.c*(t0-te)).to('Mpc')
 
     def angular_dist(self, z=None, a=None):
         dc = self.comoving_dist(z=z, a=a)

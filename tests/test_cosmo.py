@@ -7,14 +7,14 @@ def test_param():
 
 def test_age_estimator():
 	param = astro.param()
-	t0 = astro.age_estimator(param, 0)
+	t0 = astro.age_estimator(param, 0).value
 	assert np.abs(t0-13.74)<0.01
 
 def test_cosmo_dist():
 	param = astro.param()
 	dist = astro.CosmoDistances(param)
-	cdist = dist.comoving_dist(1) #3380.72792719
-	ldist = dist.luminosity_dist(1) #6761.45585438037
+	cdist = dist.comoving_dist(1).value #3380.72792719
+	ldist = dist.luminosity_dist(1).value #6761.45585438037
 	assert np.abs(cdist-3380.73)<0.1 and np.abs(ldist-6761.46)<0.1
 
 def test_hubble():
