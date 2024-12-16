@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
-from astropy.cosmology import LambdaCDM
-from astropy import units as u 
 import os, requests, zipfile, wget, pickle
 import importlib.resources as pkg_resources
+from astropy.cosmology import LambdaCDM
+from astropy import units as u 
 
 from .cosmo_equations import *
 
