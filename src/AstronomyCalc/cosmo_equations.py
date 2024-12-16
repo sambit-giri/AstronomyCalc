@@ -70,11 +70,11 @@ class CosmoDistances(FriedmannEquation):
 
     def _comoving_dist(self, z):
         I = lambda z: const.c/self.H(z=z)
-        return (quad(lambda x: I(x).value, 0, z)[0]*I(0).unit).to('Mpc') # Mpc
+        return (quad(lambda x: I(x).value, 0, z)[0]*I(0).unit).to('Mpc').value # Mpc
 
     def comoving_dist(self, z=None, a=None):
         if a is not None: z = a_to_z(a)
-        return np.vectorize(self._comoving_dist)(z)
+        return np.vectorize(self._comoving_dist)(z)*u.Mpc
 
     def proper_dist(self, z=None, a=None):
         dc = self.comoving_dist(z=z, a=a)
