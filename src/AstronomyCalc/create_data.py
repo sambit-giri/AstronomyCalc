@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from astropy.cosmology import LambdaCDM
 from astropy import units as u 
-import os, requests, zipfile, wget
+import os, requests, zipfile, wget, pickle
 import importlib.resources as pkg_resources
 
 from .cosmo_equations import *
@@ -64,7 +64,7 @@ def generate_distance_modulus(n_samples=100, z0=0.3, dmu_0=0.1, dmu_1=0.02, rand
     z_sample, mu_sample, dmu = generate_mu_z(size=n_samples, z0=z0, dmu_0=dmu_0, dmu_1=dmu_1, random_state=random_state, cosmo=cosmo)
     return z_sample, mu_sample, dmu
 
-def Hubble1929_data(data_link=None):
+def Hubble1929_data():
     """
     Load the Hubble (1929) dataset of distance vs velocity.
 
@@ -77,10 +77,10 @@ def Hubble1929_data(data_link=None):
                - distances (ndarray): Array of distances.
                - velocities (ndarray): Array of velocities.
     """
-    if data_link is None:
-        data_link = "https://github.com/behrouzz/astrodatascience/raw/main/data/hubble1929.csv"
-    df = pd.read_csv(data_link)
-    # print(df.head())
+    package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
+    filename = 'hubble1929.txt'
+    path_to_file = os.path.join(package_folder, filename)
+    df = pd.read_csv(path_to_file, skiprows=1)
     return np.array(df['distance']), np.array(df['velocity'])
 
 def PantheonPlus_distance_modulus(zmin=0.023, zmax=6, zval='hd'):
