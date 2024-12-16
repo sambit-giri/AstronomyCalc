@@ -191,7 +191,7 @@ class SPARC_Galaxy_dataset:
         If the data folder does not exist, it triggers the download of the dataset.
         """
         self.package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
-        self.data_folder = os.path.join(self.package_folder, "Rotmod_LTG")
+        self.data_folder = os.path.join(self.package_folder, "SPARC_Galaxy_Rotmod")
         if not os.path.exists(self.data_folder):
             self.download_data()
 
@@ -222,7 +222,7 @@ class SPARC_Galaxy_dataset:
         
         zip_file_path = os.path.join(target_folder, "Rotmod_LTG.zip")
         with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
-            zip_file_target = os.path.join(target_folder, "Rotmod_LTG")
+            zip_file_target = os.path.join(target_folder, "SPARC_Galaxy_Rotmod")
             zip_ref.extractall(zip_file_target)
         
         os.remove(zip_file_path)
