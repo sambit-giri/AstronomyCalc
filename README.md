@@ -50,8 +50,8 @@ One can also install the latest version using pip by running the following comma
 
 **Important Notes**
 
-* Python Version: This package requires Python version 3.8 or higher.
-* Virtual Environment: Using a Python virtual environment is recommended to prevent conflicts with system software. You can create one using Anaconda or venv.
+* *Python Version*: This package requires Python version 3.8 or higher.
+* *Virtual Environment*: Using a Python virtual environment is recommended to prevent conflicts with system software. You can create one using [Anaconda](https://www.anaconda.com/) or [venv](https://docs.python.org/3/library/venv.html).
 * The dependencies should be installed automatically during the installation process. The list of required packages can be found in the requirements.txt file present in the root directory.
 
 ### Tests
