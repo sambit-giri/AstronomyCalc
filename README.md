@@ -60,14 +60,16 @@ For testing, one can use [pytest](https://docs.pytest.org/en/stable/). To run al
 
     python -m pytest tests
     
-## Jupyter Notebooks
+## Jupyter Notebook Usage
 
 The Jupyter notebooks provided in the [notebooks folder](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) can be used in the following ways:
 
-### Run Online
+**Run Online**
+
 You can use the notebooks directly on platforms like **myBinder** or **Google Colab**, which are set up for each tutorial.
 
-### Run Locally
+**Run Locally**
+
 To run the notebooks locally:
 
 1. Open a terminal in the folder containing the notebooks.
