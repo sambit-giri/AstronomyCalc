@@ -60,6 +60,29 @@ For testing, one can use [pytest](https://docs.pytest.org/en/stable/). To run al
 
     python -m pytest tests
     
+## Jupyter Notebooks
+
+The Jupyter notebooks provided in the [notebooks folder](https://github.com/sambit-giri/AstronomyCalc/tree/main/notebooks) can be used in the following ways:
+
+### Run Online
+You can use the notebooks directly on platforms like **myBinder** or **Google Colab**, which are set up for each tutorial.
+
+### Run Locally
+To run the notebooks locally:
+
+1. Open a terminal in the folder containing the notebooks.
+2. Run the following command:
+   ```bash
+   jupyter notebook
+
+This will launch the notebooks in your web browser.
+
+If you are using Anaconda environments, you need to install the [nb_conda](https://github.com/anaconda/nb_conda) package. It can be installed with pip:
+
+    pip install nb_conda
+
+For a detailed tutorial on Jupyter Notebooks, refer to this [guide](https://www.datacamp.com/tutorial/tutorial-jupyter-notebook).
+
 ## CONTRIBUTING
 
 If you find any bugs or unexpected behavior in the code, please feel free to open a [Github issue](https://github.com/sambit-giri/AstronomyCalc/issues). The issue page is also good if you seek help or have suggestions for us. For more details, please see [here](https://AstronomyCalc.readthedocs.io/contributing.html).

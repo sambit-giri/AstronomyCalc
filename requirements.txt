@@ -11,3 +11,4 @@ wget
 joblib
 tqdm
 corner
+jupyter
