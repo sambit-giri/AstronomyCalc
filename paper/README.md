@@ -1,8 +1,8 @@
 # Paper submission
 
-AstronomyCalc paper for submission to the [Journal of Open Source Science](https://joss.theoj.org/).
+AstronomyCalc paper for submission to the [Journal of Open Source Education](https://jose.theoj.org/).
 
-[Paper submission instructions](https://joss.readthedocs.io/en/latest/submitting.html) -
+[Paper submission instructions](https://openjournals.readthedocs.io/en/jose/submitting.html) -
 this link also includes formatting instructions.
 
-[Review criteria](https://joss.readthedocs.io/en/latest/review_criteria.html)
+[Review criteria](https://openjournals.readthedocs.io/en/jose/review_criteria.html)
