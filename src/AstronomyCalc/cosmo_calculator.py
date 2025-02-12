@@ -64,7 +64,7 @@ def Hubble_distance(param):
         float: The Hubble distance (c / H0) in Mpc.
     """
     cosmo = CosmoDistances(param)
-    return cosmo.Hubble_dist()
+    return cosmo.Hubble_dist().to('Mpc')
 
 def comoving_distance(param, z=None, a=None):
     """
@@ -114,7 +114,7 @@ def light_travel_distance(param, z=None, a=None):
     cosmo = CosmoDistances(param)
     return cosmo.light_travel_dist(z=z, a=a)
 
-def angular_distance(param, z=None, a=None):
+def angular_diameter_distance(param, z=None, a=None):
     """
     Calculate the angular diameter distance at a given redshift or scale factor.
 
@@ -175,5 +175,5 @@ def distance_modulus(param, z=None, a=None):
     """
     if z is None: z = a_to_z(a)
     lumdist = lambda z: luminosity_distance(param, z)
-    distmod = lambda z: 5*np.log10(lumdist(z))+25
+    distmod = lambda z: 5*np.log10(lumdist(z).to('Mpc').value)+25
     return distmod(z)

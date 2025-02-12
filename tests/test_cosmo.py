@@ -7,17 +7,24 @@ def test_param():
 
 def test_age_estimator():
 	param = astro.param()
-	t0 = astro.age_estimator(param, 0).value
-	assert np.abs(t0-13.74)<0.01
+	t0 = astro.age_estimator(param, 0).to('Gyr').value #13.73072467 Gyr
+	assert np.abs(t0-13.73)<0.01
 
 def test_cosmo_dist():
 	param = astro.param()
-	dist = astro.CosmoDistances(param)
-	cdist = dist.comoving_dist(1).value #3380.72792719
-	ldist = dist.luminosity_dist(1).value #6761.45585438037
-	assert np.abs(cdist-3380.73)<0.1 and np.abs(ldist-6761.46)<0.1
+	Hdist = astro.Hubble_distance(param).to('Mpc').value              #4408.71261765 Mpc
+	cdist = astro.comoving_distance(param, 1).to('Mpc').value         #3380.73309202 Mpc
+	pdist = astro.proper_distance(param, 1).to('Mpc').value           #1690.36654601 Mpc
+	tdist = astro.light_travel_distance(param, 1).to('Mpc').value     #2422.20670428 Mpc
+	adist = astro.angular_diameter_distance(param, 1).to('Mpc').value #1690.36654601 Mpc
+	ldist = astro.luminosity_distance(param, 1).to('Mpc').value       #6761.46618403 Mpc
+	hdist = astro.horizon_distance(param).to('Mpc').value             #7389.99146892 Mpc
+	mdist = astro.distance_modulus(param, 1)                          #44.150204401742954
+	dists = np.array([Hdist, cdist, pdist, tdist, adist, ldist, hdist, mdist])
+	value = np.array([4408.7,3380.7,1690.4,2422.2,1690.4,6761.5,7390.0,44.15])
+	assert np.all(np.abs(dists-value)<0.1)
 
 def test_hubble():
 	param = astro.param()
-	fried = astro.FriedmannEquation(param)
-	assert np.abs(fried.Hz(1)-121.1)<0.1 
+	Hz = astro.Hubble(param, 1).to('km/Mpc/s').value #121.0963352 km / (Mpc s)
+	assert np.abs(Hz-121.1)<0.1 
