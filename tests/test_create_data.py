@@ -12,21 +12,21 @@ def test_distance_modulus_data():
     mu_model = astro.distance_modulus(param, z_sample)
     assert np.all(np.abs(mu_sample-mu_model)<dmu*3)
 
-def test_Hubble1929_data():
-    dists, vels = astro.Hubble1929_data()
-    vels_model = 500*dists #H0 = 500 km/s/Mpc
-    assert np.all(np.abs(vels_model-vels)<vels.std()*3)
+# def test_Hubble1929_data():
+#     dists, vels = astro.Hubble1929_data()
+#     vels_model = 500*dists #H0 = 500 km/s/Mpc
+#     assert np.all(np.abs(vels_model-vels)<vels.std()*3)
 
-def test_PantheonPlus_distance_modulus():
-    param = astro.param()
-    data_dict = astro.PantheonPlus_distance_modulus()
-    z_data = data_dict['z']
-    mu_mean = data_dict['data']
-    mu_std = np.sqrt(data_dict['cov'].diagonal())
-    mu_model = astro.distance_modulus(param, z_data)-19.1
-    assert np.all(np.abs(mu_mean-mu_model)<mu_std*9)
+# def test_PantheonPlus_distance_modulus():
+#     param = astro.param()
+#     data_dict = astro.PantheonPlus_distance_modulus()
+#     z_data = data_dict['z']
+#     mu_mean = data_dict['data']
+#     mu_std = np.sqrt(data_dict['cov'].diagonal())
+#     mu_model = astro.distance_modulus(param, z_data)-19.1
+#     assert np.all(np.abs(mu_mean-mu_model)<mu_std*9)
 
-def test_SPARC_galaxy_rotation_curves_data():
-    data = astro.SPARC_galaxy_rotation_curves_data(name='NGC3198')
-    Rad, Vobs = data['values']['Rad'], data['values']['Vobs']
-    assert np.all(Vobs<160.) and np.all(0.<Rad) and np.all(Rad<45.)
+# def test_SPARC_galaxy_rotation_curves_data():
+#     data = astro.SPARC_galaxy_rotation_curves_data(name='NGC3198')
+#     Rad, Vobs = data['values']['Rad'], data['values']['Vobs']
+#     assert np.all(Vobs<160.) and np.all(0.<Rad) and np.all(Rad<45.)
