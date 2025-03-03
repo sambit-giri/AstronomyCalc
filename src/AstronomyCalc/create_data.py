@@ -80,7 +80,7 @@ def Hubble1929_data():
                - distances (ndarray): Array of distances.
                - velocities (ndarray): Array of velocities.
     """
-    package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
+    package_folder = str(resources.files('AstronomyCalc').joinpath('input_data'))
     filename = 'hubble1929.txt'
     path_to_file = os.path.join(package_folder, filename)
     df = pd.read_csv(path_to_file, skiprows=1)
@@ -91,7 +91,7 @@ def PantheonPlus_distance_modulus(zmin=0.023, zmax=6, zval='hd'):
     zval_keys = ['hd', 'helio', 'cmb']
     assert zval in zval_keys
 
-    package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
+    package_folder = str(resources.files('AstronomyCalc').joinpath('input_data'))
     data_folder = os.path.join(package_folder, "PantheonPlus")
     mean_file = os.path.join(data_folder, "Pantheon+SH0ES.dat")
     cmat_file = os.path.join(data_folder, "Pantheon+SH0ES_STAT+SYS.cov")
@@ -193,7 +193,7 @@ class SPARC_Galaxy_dataset:
 
         If the data folder does not exist, it triggers the download of the dataset.
         """
-        self.package_folder = str(pkg_resources.files('AstronomyCalc').joinpath('input_data'))
+        self.package_folder = str(resources.files('AstronomyCalc').joinpath('input_data'))
         self.data_folder = os.path.join(self.package_folder, "SPARC_Galaxy_Rotmod")
         if not os.path.exists(self.data_folder):
             self.download_data()
@@ -234,7 +234,7 @@ class SPARC_Galaxy_dataset:
         return zip_file_target
     
 def download_data(url, target_folder=None):
-    package_folder = pkg_resources.files('AstronomyCalc').joinpath('input_data')
+    package_folder = resources.files('AstronomyCalc').joinpath('input_data')
     if target_folder is None:
         target_folder = str(package_folder)
     wget.download(url, target_folder)
