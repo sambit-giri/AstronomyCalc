@@ -47,7 +47,7 @@ jobs:
           # Activate the Conda environment and update Python
           source ~/.bashrc
           conda activate astro
-          conda install python=3.8 --update-deps  # Specify exact Python version
+          conda install python=3.10 --update-deps  # Specify exact Python version
         shell: bash
 
       - name: Install additional dependencies
