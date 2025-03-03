@@ -1,7 +1,10 @@
 import numpy as np
 import pandas as pd
-import os, requests, zipfile, wget, pickle
-import importlib.resources as pkg_resources
+import sys, os, requests, zipfile, wget, pickle
+if sys.version_info < (3, 9):
+    import importlib_resources as resources
+else:
+    import importlib.resources as resources
 from astropy.cosmology import LambdaCDM
 from astropy import units as u 
 
