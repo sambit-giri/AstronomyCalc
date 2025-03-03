@@ -12,10 +12,10 @@ def test_distance_modulus_data():
     mu_model = astro.distance_modulus(param, z_sample)
     assert np.all(np.abs(mu_sample-mu_model)<dmu*3)
 
-# def test_Hubble1929_data():
-#     dists, vels = astro.Hubble1929_data()
-#     vels_model = 500*dists #H0 = 500 km/s/Mpc
-#     assert np.all(np.abs(vels_model-vels)<vels.std()*3)
+def test_Hubble1929_data():
+    dists, vels = astro.Hubble1929_data()
+    vels_model = 500*dists #H0 = 500 km/s/Mpc
+    assert np.all(np.abs(vels_model-vels)<vels.std()*3)
 
 # def test_PantheonPlus_distance_modulus():
 #     param = astro.param()
