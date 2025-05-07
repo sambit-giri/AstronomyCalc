@@ -1,6 +1,7 @@
 # AstronomyCalc
 
 [![License](https://img.shields.io/github/license/sambit-giri/AstronomyCalc.svg)](https://github.com/sambit-giri/AstronomyCalc/blob/main/LICENSE)
+[![DOI](https://jose.theoj.org/papers/10.21105/jose.00261/status.svg)](https://doi.org/10.21105/jose.00261)
 [![GitHub Repository](https://img.shields.io/github/repo-size/sambit-giri/AstronomyCalc)](https://github.com/sambit-giri/AstronomyCalc)
 ![CI Status](https://github.com/sambit-giri/AstronomyCalc/actions/workflows/ci.yml/badge.svg)
 [![PyPI version](https://badge.fury.io/py/AstronomyCalc.svg)](https://badge.fury.io/py/AstronomyCalc)
@@ -95,3 +96,20 @@ This project uses dual licensing:
 - **Non-code materials** (papers, figures, documentation): Licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 Please ensure proper attribution when reusing any materials.
+
+## Citation
+
+If you use **AstronomyCalc** in your research or teaching, please cite:
+
+```bibtex
+@article{Giri2025,
+  author = {Sambit K. Giri},
+  title = {AstronomyCalc: A python toolkit for teaching Astronomical Calculations and Data Analysis methods},
+  journal = {Journal of Open Source Education},
+  volume = {8},
+  issue = {87},
+  pages = {261},
+  year = {2025},
+  doi = {10.21105/jose.00261},
+  url = {https://jose.theoj.org/papers/10.21105/jose.00261}
+}
