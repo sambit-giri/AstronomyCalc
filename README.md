@@ -88,3 +88,10 @@ For a detailed tutorial on Jupyter Notebooks, refer to this [guide](https://www.
 ## CONTRIBUTING
 
 If you find any bugs or unexpected behavior in the code, please feel free to open a [Github issue](https://github.com/sambit-giri/AstronomyCalc/issues). The issue page is also good if you seek help or have suggestions for us. For more details, please see [here](https://AstronomyCalc.readthedocs.io/contributing.html).
+
+## Licensing
+This project uses dual licensing:
+- **Code**: Licensed under [MIT License](LICENSE) (see repository)
+- **Non-code materials** (papers, figures, documentation): Licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see Zenodo archive)
+
+Please ensure proper attribution when reusing any materials.
