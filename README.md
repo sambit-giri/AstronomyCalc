@@ -91,7 +91,7 @@ If you find any bugs or unexpected behavior in the code, please feel free to ope
 
 ## Licensing
 This project uses dual licensing:
-- **Code**: Licensed under [MIT License](LICENSE) (see repository)
-- **Non-code materials** (papers, figures, documentation): Licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see Zenodo archive)
+- **Code**: Licensed under [MIT License](LICENSE)
+- **Non-code materials** (papers, figures, documentation): Licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 Please ensure proper attribution when reusing any materials.
